@@ -16,7 +16,9 @@
     "build": "npm run webpack",
     "server": "node server",
     "test": "jest --watchAll",
-    "lint": "eslint --ext .js,.jsx ."
+    "lint": "eslint --ext .js,.jsx .",
+    "knex": "knex --knexfile server/db/knexfile.js",
+    "knex:reset": "npm run knex migrate:rollback && npm run knex migrate:latest && npm run knex seed:run"
   },
   "babel": {
     "presets": [
