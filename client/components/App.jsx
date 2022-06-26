@@ -34,8 +34,12 @@ function App() {
         })
     }, [])
 
+    const onSubmitHandler = (e) => {
+      e.preventDefault()
+    }
+
     return (
-      <form className="todo-form">
+      <form className="todo-form" onSubmit={onSubmitHandler}>
         <label htmlFor="title">Title:</label>
         <input 
           type="text" id="title" name="title" 
@@ -70,6 +74,7 @@ function App() {
             return <option key={key} value={descr}>{descr}</option>
           })}
         </select>
+        <button className="submit" type="submit">Submit Todo</button>
       </form>
     )
   }

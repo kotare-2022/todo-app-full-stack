@@ -7,6 +7,16 @@ header {
   text-align: center;
 }
 
+button {
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: medium;
+  color: white;
+  margin: 2px 5px;
+  border-radius: 10px;
+}
+
 .todos {
   margin: auto;
   width: 700px;
@@ -33,24 +43,14 @@ header {
   justify-content: flex-end;
 }
 
-.todo-update {
+.update {
   background-color: #0a6da8;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  font-size: medium;
-  color: white;
-  margin: 2px 5px;
-  border-radius: 10px;
 }
 
-.todo-delete {
+.delete {
   background-color: #e79c41;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  font-size: medium;
-  color: white;
-  margin: 2px 5px;
-  border-radius: 10px;
+}
+
+.submit {
+  background-color: rgb(114, 186, 6);
 }

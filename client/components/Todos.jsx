@@ -21,8 +21,8 @@ export default function Todos(props) {
           <div className="todo-theme"><em>Theme:</em> {todo.theme_description}</div>
           <div className="todo-importance"><em>Importance:</em> {todo.importance_level_description}</div>
           <div className="todo-buttons">
-            <button className="todo-update" type="submit" onClick={handleUpdate}>Update</button>
-            <button className="todo-delete" type="submit" onClick={handleDelete}>Delete</button>
+            <button className="update" type="submit" onClick={handleUpdate}>Update</button>
+            <button className="delete" type="submit" onClick={handleDelete}>Delete</button>
           </div>
         </div>
       )
