@@ -6,3 +6,6 @@ GET http://localhost:3000/api/v1/todos/1
 
 ### request for themes
 GET http://localhost:3000/api/v1/themes
+
+### request for importance_levels
+GET http://localhost:3000/api/v1/importance_levels
