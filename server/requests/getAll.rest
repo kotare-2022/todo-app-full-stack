@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/v1/todos
 
 ### get a specific todo by id from 'api'
-GET http://localhost:3000/api/v1/todos/1
+GET http://localhost:3000/api/v1/todos/66
 
 ### request for themes
 GET http://localhost:3000/api/v1/themes

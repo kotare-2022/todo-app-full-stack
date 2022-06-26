@@ -9,7 +9,7 @@ function getByTableName(tableName, db = connection) {
     .select()
 }
 
-function getByIdAndTableName(tableName, id, db = connection) {
+function getByTableNameAndId(tableName, id, db = connection) {
   return db(tableName)
     .select()
     .where({id})
@@ -58,7 +58,7 @@ function getFullTodoById(id, db = connection) {
 
 module.exports = {
   getByTableName,
-  getByIdAndTableName,
+  getByTableNameAndId,
   addByTableName,
   updateByTableNameAndId,
   getFullTodos,

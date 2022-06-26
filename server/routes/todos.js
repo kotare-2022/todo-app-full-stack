@@ -4,17 +4,13 @@ const db = require('../db/db')
 
 const router = express.Router()
 
-router.use(apiHelper.terminalLogger)
-
 // GET /api/v1/todos
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const data = await db.getFullTodos()
     res.status(200).json(data)
   } catch (err) {
-    // consider a logger
-    res.status(500).json({message: err.message})
-    // throw err
+    next(err)
   }
 })
 
@@ -22,9 +18,14 @@ router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id
     const data = await db.getFullTodoById(id)
+    if (!data) {
+      // 404 not found
+      res.status(404).json({message: 'not found'})
+    }
+    
     res.status(200).json(data)
   } catch (err) {
-    res.status(500).json({message: err.message})
+    next(err)
   }
 })
 

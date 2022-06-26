@@ -11,11 +11,13 @@ const server = express()
 server.use(express.json())
 server.use(express.static(path.join(__dirname, './public')))
 
+server.use(apiHelper.terminalLogger)
+
 server.use('/api/v1/todos', todos)
 server.use('/api/v1/themes', themes)
 server.use('/api/v1/importance_levels', importance_levels)
 
-// BrowserRouter config
+// BrowserRouter config -- leave here
 /*
 server.get('*', (req, res) => {
   // note the path is not relative to location of server.js file!
@@ -24,5 +26,6 @@ server.get('*', (req, res) => {
 */
 
 server.use(apiHelper.unknownEndpoint)
+server.use(apiHelper.errorHandler)
 
 module.exports = server

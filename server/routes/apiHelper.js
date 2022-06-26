@@ -9,11 +9,17 @@ const terminalLogger = (request, response, next) => {
   next()
 }
 
-const unknownEndpoint = (request, response, next) => {
+const unknownEndpoint = (request, response) => {
   response.status(404).send('resource not found')
+}
+
+const errorHandler = (err, request, response, next) => {
+  console.error(err.message)
+  response.status(500).json({message: err.message})
 }
 
 module.exports = {
   terminalLogger,
-  unknownEndpoint
+  unknownEndpoint,
+  errorHandler
 }
