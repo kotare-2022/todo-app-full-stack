@@ -36,6 +36,7 @@ function App() {
 
     const onSubmitHandler = (e) => {
       e.preventDefault()
+      console.log('Add todo handler not yet implemented')
     }
 
     return (
