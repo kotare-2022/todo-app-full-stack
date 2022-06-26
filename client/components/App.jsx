@@ -12,20 +12,23 @@ function App() {
 
   return (
     <div className="main">
-      <h1>Todo Application</h1>
-      <ul>
+      <header><h1>Todo Application</h1></header>
+      <div className="todos">
         {todos && todos.map(todo => {
-          
           return (
-            <li key={todo.id}>
-                <p>Title: {todo.title}</p>
-                <p>Description: {todo.description}</p>
-                <p>Importance: {todo.importance_level_description}</p>
-                <p>Theme: {todo.theme_description}</p>
-            </li>
+            <div key={todo.id} className="todo">
+              <div className="todo-header">{todo.title}</div>
+              <div className="todo-description"><em>Description:</em> {todo.description}</div>
+              <div className="todo-importance"><em>Importance:</em> {todo.importance_level_description}</div>
+              <div className="todo-theme"><em>Theme:</em> {todo.theme_description}</div>
+              <div className="todo-buttons">
+                <button className="todo-update" type="submit">Update</button>
+                <button className="todo-delete" type="submit">Delete</button>
+              </div>
+            </div>
           )
         })}
-      </ul>
+      </div>
     </div>
   )
 }

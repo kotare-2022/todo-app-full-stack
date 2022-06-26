@@ -9,7 +9,7 @@ const importance_levels = require('./routes/importance_levels')
 const server = express()
 
 server.use(express.json())
-server.use(express.static(path.join(__dirname, './public')))
+server.use(express.static(path.join(__dirname, '/public')))
 
 server.use(apiHelper.terminalLogger)
 
