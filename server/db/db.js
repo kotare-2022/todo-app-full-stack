@@ -9,7 +9,7 @@ const mapToCase = (val, caseFn) => {
   const isArray = Array.isArray(val)
   if (isArray) {
     // is an array of object
-    val = val.map(obj => {
+    return val.map(obj => {
       return _.mapKeys(obj, (__, key) => caseFn(key))
     })
   } else {
@@ -32,6 +32,7 @@ const mapToSnakeCase = val => {
 function getByTableName(tableName, db = connection) {
   return db(tableName)
     .select()
+    .then(result => mapToCamelCase(result))
     
 }
 
@@ -39,17 +40,23 @@ function getByTableNameAndId(tableName, id, db = connection) {
   return db(tableName)
     .select()
     .where({id})
+    .then(result => mapToCamelCase(result))
 }
 
 function addByTableName(tableName, data, db = connection) {
+  data = mapToSnakeCase(data)
   return db(tableName)
     .insert(data)
+    .then(result => mapToCamelCase(result))
 }
 
 function updateByTableNameAndId(tableName, id, data, db = connection) {
+  data = mapToSnakeCase(data)
   return db(tableName)
     .where({id})
     .update(data)
+    .then(result => mapToCamelCase(result))
+
 }
 
 // CUSTOMS
@@ -74,12 +81,14 @@ function getFullTodos(db = connection) {
       '=',
       'themes.id'
     )
+    .then(result => mapToCamelCase(result))
 }
 
 function getFullTodoById(id, db = connection) {
-  return getFullTodos()
+  return getFullTodos(db)
     .where({'todos.id' :id}) // need to be more specific
     .first()
+    .then(result => mapToCamelCase(result))
 }
 
 module.exports = {

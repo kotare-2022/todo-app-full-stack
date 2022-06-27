@@ -18,8 +18,8 @@ export default function Todos(props) {
         <div key={todo.id} className="todo">
           <div className="todo-header">{todo.title}</div>
           <div className="todo-description"><em>Description:</em> {todo.description}</div>
-          <div className="todo-theme"><em>Theme:</em> {todo.theme_description}</div>
-          <div className="todo-importance"><em>Importance:</em> {todo.importance_level_description}</div>
+          <div className="todo-theme"><em>Theme:</em> {todo.themeDescription}</div>
+          <div className="todo-importance"><em>Importance:</em> {todo.importanceLevelDescription}</div>
           <div className="todo-buttons">
             <button className="update" type="submit" onClick={handleUpdate}>Update</button>
             <button className="delete" type="submit" onClick={handleDelete}>Delete</button>

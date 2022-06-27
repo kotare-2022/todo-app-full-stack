@@ -1,5 +1,4 @@
 const express = require('express')
-const apiHelper = require('./apiHelper')
 const db = require('../db/db')
 
 const router = express.Router()
@@ -8,6 +7,7 @@ const router = express.Router()
 router.get('/', async (req, res, next) => {
   try {
     const data = await db.getFullTodos()
+    // console.log(data)
     res.status(200).json(data)
   } catch (err) {
     next(err)
