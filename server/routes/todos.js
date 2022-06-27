@@ -31,10 +31,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const data = req.body // assuming the body of the response is json
-    // assume that the information received is camelCased --> will need to be transformed to snake case 
-
-    // then data added ---> this means a second request to the database based on the new id returned
+    const data = req.body
+    
 
   } catch (err) {
 

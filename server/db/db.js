@@ -85,7 +85,26 @@ function getFullTodos(db = connection) {
 }
 
 function getFullTodoById(id, db = connection) {
-  return getFullTodos(db)
+  return db('todos')
+    .select(
+      'todos.id AS id',
+      'todos.title AS title',
+      'todos.description AS description',
+      'importance_levels.description AS importance_level_description',
+      'themes.description AS theme_description'
+    )
+    .innerJoin(
+      'importance_levels', 
+      'todos.importance_level_id', 
+      '=',
+      'importance_levels.id'
+    )
+    .innerJoin(
+      'themes',
+      'todos.theme_id',
+      '=',
+      'themes.id'
+    )
     .where({'todos.id' :id}) // need to be more specific
     .first()
     .then(result => mapToCamelCase(result))
