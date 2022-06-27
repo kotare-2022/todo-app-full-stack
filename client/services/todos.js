@@ -29,7 +29,7 @@ async function updateTodoById(id, data) {
 }
 
 async function deleteTodoById(id) {
-  await request
+  return await request
     .delete(`${localApiUrl}/${id}`)
 }
 

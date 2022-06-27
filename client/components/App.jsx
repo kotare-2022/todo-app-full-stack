@@ -15,8 +15,16 @@ function App() {
       .then(result => setTodos(result))   
   }, [])
 
-  const addTodos = (newTodo) => {
+  const addTodo = newTodo => {
     setTodos(todos.concat(newTodo))
+  }
+
+  const deleteTodo = id => {
+    // filters all but the one with id
+    setTodos(todos.filter(t => {
+      console.log(t.id, '  |||  ', id)
+      return t.id !== id
+    }))
   }
 
   // REFS
@@ -32,11 +40,14 @@ function App() {
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm 
           visibilityToggler={tmpHandler}
-          addTodos={addTodos}
+          addTodo={addTodo}
         />
       </Toggleable>
       <Filters />
-      <Todos todos={todos}/>
+      <Todos 
+        todos={todos}
+        deleteTodo={deleteTodo}
+      />
     </div>
   )
 }

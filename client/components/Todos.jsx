@@ -1,5 +1,7 @@
 import React from 'react'
 
+import todosServices from '../services/todos' 
+
 export default function Todos(props) {
   const todos = props.todos
 
@@ -7,8 +9,15 @@ export default function Todos(props) {
     console.log('Update not yet implemented')
   }
 
-  const handleDelete = () => {
-    console.log('Delete not yet implemented')
+  const handleDelete = id => {
+    // console.log('Delete not yet implemented')
+    return () => {
+      todosServices.deleteTodoById(id)
+        .then(_ => {
+          console.log('hello')
+          props.deleteTodo(id)
+        })
+    }
   }
 
   return (
@@ -22,7 +31,7 @@ export default function Todos(props) {
           <div className="todo-importance"><em>Importance:</em> {todo.importanceLevelDescription}</div>
           <div className="todo-buttons">
             <button className="update" type="submit" onClick={handleUpdate}>Update</button>
-            <button className="delete" type="submit" onClick={handleDelete}>Delete</button>
+            <button className="delete" type="submit" onClick={handleDelete(todo.id)}>Delete</button>
           </div>
         </div>
       )

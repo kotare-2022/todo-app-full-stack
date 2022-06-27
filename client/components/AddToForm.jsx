@@ -41,7 +41,7 @@ export default function AddTodoForm(props) {
         .then(result => {
           // result is a full todo object that has been added
           // -- plus already joined!
-          props.addTodos(result)
+          props.addTodo(result)
         })
     }
 
