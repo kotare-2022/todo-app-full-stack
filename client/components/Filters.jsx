@@ -25,7 +25,7 @@ export default function Filters() {
 
   return (
     <div className="filter-box">
-      <label htmlFor="theme">Filter By:</label>
+      <label htmlFor="theme">Filter by Theme:</label>
       <select 
         name="theme" id="theme" 
         value={theme} 
@@ -37,7 +37,7 @@ export default function Filters() {
           return <option key={key} value={descr}>{descr}</option>
         })}        
       </select>      
-      <label htmlFor="importance_level">How important is this:</label>
+      <label htmlFor="importance_level">Filter by Importance:</label>
       <select 
         name="importance_level" id="importance_level" 
         value={importance} 

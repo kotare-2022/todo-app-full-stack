@@ -26,9 +26,10 @@ export default function AddTodoForm(props) {
   const onSubmitHandler = (e) => {
     e.preventDefault()
     console.log('Add todo handler not yet implemented')
-  }
+    
 
-  // debugger
+    props.visibilityToggler() // <--- hiding form after todo submission
+  }
 
   return (
     <form className="todo-form" onSubmit={onSubmitHandler}>

@@ -1,12 +1,38 @@
+const _ = require('lodash')
 const knex = require('knex')
 const config = require('./knexfile').development
 
 const connection = knex(config)
 
+// HELPERS for translating between snake and camel case
+const mapToCase = (val, caseFn) => {
+  const isArray = Array.isArray(val)
+  if (isArray) {
+    // is an array of object
+    val = val.map(obj => {
+      return _.mapKeys(obj, (__, key) => caseFn(key))
+    })
+  } else {
+    // is an object itself
+    return _.mapKeys(val, (__, key) => caseFn(key))
+  }
+}
+
+const mapToCamelCase = val => {
+  const caseFn = _.camelCase
+  return mapToCase(val, caseFn) 
+}
+
+const mapToSnakeCase = val => {
+  const caseFn = _.snakeCase
+  return mapToCase(val, caseFn)
+}
+
 // REUSABLES
 function getByTableName(tableName, db = connection) {
   return db(tableName)
     .select()
+    
 }
 
 function getByTableNameAndId(tableName, id, db = connection) {
