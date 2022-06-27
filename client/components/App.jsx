@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import AddTodoForm from './AddToForm'
 import Todos from './Todos'
 import Toggleable from './Toggleable'
+import Filters from './Filters'
 
 import todosServices from '../services/todos'
 
@@ -26,6 +27,7 @@ function App() {
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm visibilityToggler={tmpHandler}/>
       </Toggleable>
+      <Filters />
       <Todos todos={todos}/>
     </div>
   )
