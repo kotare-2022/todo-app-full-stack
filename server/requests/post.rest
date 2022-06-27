@@ -1,0 +1,10 @@
+### Adding a POST to database
+POST http://localhost:3000/api/v1/todos
+Content-Type: application/json
+
+{
+  "title": "Say Good Morning to 10x people",
+  "description": "Make other people feel awesome!",
+  "importanceLevelId": "1",
+  "themeId": "3"
+}

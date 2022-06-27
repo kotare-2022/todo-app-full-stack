@@ -32,10 +32,13 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const data = req.body
-    
-
+    const idAry = await db.addByTableName('todos', data)
+    const id = idAry[0]
+    // get new information from database based on id
+    const result = await db.getByTableNameAndId('todos', id)
+    res.status(200).json(result)
   } catch (err) {
-
+    next(err)
   }
 })
 

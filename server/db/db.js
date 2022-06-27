@@ -47,7 +47,7 @@ function addByTableName(tableName, data, db = connection) {
   data = mapToSnakeCase(data)
   return db(tableName)
     .insert(data)
-    .then(result => mapToCamelCase(result))
+    // .then(result => mapToCamelCase(result)) // <-- not used as returns [id] of data inserted
 }
 
 function updateByTableNameAndId(tableName, id, data, db = connection) {
@@ -55,7 +55,7 @@ function updateByTableNameAndId(tableName, id, data, db = connection) {
   return db(tableName)
     .where({id})
     .update(data)
-    .then(result => mapToCamelCase(result))
+    // .then(result => mapToCamelCase(result)) // <-- not used as returns number of records updated
 
 }
 
@@ -107,7 +107,7 @@ function getFullTodoById(id, db = connection) {
     )
     .where({'todos.id' :id}) // need to be more specific
     .first()
-    .then(result => mapToCamelCase(result))
+    .then(result => result && mapToCamelCase(result))
 }
 
 module.exports = {
