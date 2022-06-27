@@ -56,7 +56,12 @@ function updateByTableNameAndId(tableName, id, data, db = connection) {
     .where({id})
     .update(data)
     // .then(result => mapToCamelCase(result)) // <-- not used as returns number of records updated
+}
 
+function deleteByTableNameAndId(tableName, id, db = connection) {
+  return db(tableName)
+    .where({id})
+    .delete()
 }
 
 // CUSTOMS
@@ -115,6 +120,7 @@ module.exports = {
   getByTableNameAndId,
   addByTableName,
   updateByTableNameAndId,
+  deleteByTableNameAndId,
   getFullTodos,
   getFullTodoById,
 };

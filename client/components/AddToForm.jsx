@@ -45,7 +45,8 @@ export default function AddTodoForm(props) {
         })
     }
 
-    props.visibilityToggler() // <--- hiding form after todo submission
+    props.visibilityToggler() 
+    // <--- hiding form after todo submission
   }
 
   return (
