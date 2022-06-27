@@ -15,6 +15,11 @@ function App() {
       .then(result => setTodos(result))   
   }, [])
 
+  const addTodos = (newTodo) => {
+    setTodos(todos.concat(newTodo))
+  }
+
+  // REFS
   const addTodoFormRef = useRef()
 
   const tmpHandler = () => {
@@ -25,7 +30,10 @@ function App() {
     <div className="main">
       <header><h1>Todo Application</h1></header>
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
-        <AddTodoForm visibilityToggler={tmpHandler}/>
+        <AddTodoForm 
+          visibilityToggler={tmpHandler}
+          addTodos={addTodos}
+        />
       </Toggleable>
       <Filters />
       <Todos todos={todos}/>

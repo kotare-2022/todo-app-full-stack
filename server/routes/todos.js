@@ -22,7 +22,6 @@ router.get('/:id', async (req, res, next) => {
       // 404 not found
       res.status(404).json({message: 'not found'})
     }
-    
     res.status(200).json(data)
   } catch (err) {
     next(err)
@@ -35,7 +34,7 @@ router.post('/', async (req, res, next) => {
     const idAry = await db.addByTableName('todos', data)
     const id = idAry[0]
     // get new information from database based on id
-    const result = await db.getByTableNameAndId('todos', id)
+    const result = await db.getFullTodoById(id)
     res.status(200).json(result)
   } catch (err) {
     next(err)

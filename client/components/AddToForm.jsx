@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
+import todosServices from '../services/todos' 
 import themeServices from '../services/themes'
 import importanceServices from '../services/importance'
 
@@ -10,6 +11,7 @@ export default function AddTodoForm(props) {
   const [themes, setThemes] = useState([])
   const [importance, setImportance] = useState('')
   const [importanceLevels, setImportanceLevels] = useState([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     const themeRequest = themeServices
@@ -27,6 +29,21 @@ export default function AddTodoForm(props) {
     e.preventDefault()
     console.log('Add todo handler not yet implemented')
     
+    if (isSubmitting) {
+      // this is where we send the information to the server
+      // then this is where we also change the information from server
+      const newTodo = {
+        title, description, 
+        themeId: themes.find(t => t.description === theme).id,
+        importanceLevelId: importanceLevels.find(imp => imp.description === importance).id
+      }
+      todosServices.addTodo(newTodo)
+        .then(result => {
+          // result is a full todo object that has been added
+          // -- plus already joined!
+          props.addTodos(result)
+        })
+    }
 
     props.visibilityToggler() // <--- hiding form after todo submission
   }
@@ -69,13 +86,14 @@ export default function AddTodoForm(props) {
       </select>
       <div className="todo-form-buttons">
         <button 
-          className="cancel" type="cancel"
-          onClick={props.visibilityToggler}
+          className="cancel" type="submit"
+          onClick={() => setIsSubmitting(false)}
         >
           Cancel Submission
         </button>
         <button 
           className="green-button" type="submit"
+          onClick={() => setIsSubmitting(true)}
         >
           Submit Todo
         </button>
