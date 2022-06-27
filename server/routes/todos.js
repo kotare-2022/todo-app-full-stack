@@ -45,7 +45,7 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
     await db.deleteByTableNameAndId('todos', id)
-    res.status(204)//.json({message: 'successfully deleted'})
+    res.status(204).json({message: 'successfully deleted'})
     // <--- shows no information sent with a 204!
   } catch (err) {
     next(err)

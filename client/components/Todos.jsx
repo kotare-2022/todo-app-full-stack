@@ -17,6 +17,9 @@ export default function Todos(props) {
           console.log('hello')
           props.deleteTodo(id)
         })
+        // .catch(err => {
+        //   console.log(err)
+        // })
     }
   }
 
