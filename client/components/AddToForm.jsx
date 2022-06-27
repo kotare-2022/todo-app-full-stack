@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import themeServices from '../services/themes'
 import importanceServices from '../services/importance'
 
-export default function AddTodoForm() {
+export default function AddTodoForm(props) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [theme, setTheme] = useState('')
@@ -27,6 +27,8 @@ export default function AddTodoForm() {
     e.preventDefault()
     console.log('Add todo handler not yet implemented')
   }
+
+  // debugger
 
   return (
     <form className="todo-form" onSubmit={onSubmitHandler}>
@@ -64,13 +66,19 @@ export default function AddTodoForm() {
           return <option key={key} value={descr}>{descr}</option>
         })}
       </select>
-      <button 
-        clasName="cancel" type="submit"
-        // onClick={}
-      >
-        Cancel Submission
-      </button>
-      <button className="submit" type="submit">Submit Todo</button>
+      <div className="todo-form-buttons">
+        <button 
+          className="cancel" type="cancel"
+          onClick={props.visibilityToggler}
+        >
+          Cancel Submission
+        </button>
+        <button 
+          className="green-button" type="submit"
+        >
+          Submit Todo
+        </button>
+      </div>
     </form>
   )
 }

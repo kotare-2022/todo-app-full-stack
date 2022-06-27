@@ -27,8 +27,8 @@ function Toggleable(props, refs) {
 
   return (
     <div>
-      <div style={displayWhenHidden}> 
-        <button onClick={toggleVisibility}>{props.unhideName}</button>
+      <div className="flex-center" style={displayWhenHidden}> 
+        <button className="green-button" onClick={toggleVisibility}>{props.unhideName}</button>
       </div>
       <div style={displayWhenVisible}>
         {props.children}

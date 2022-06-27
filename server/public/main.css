@@ -62,10 +62,24 @@ form {
   background-color: #e79c41;
 }
 
-.submit {
+.todo-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel {
+  background-color: rgb(148, 5, 5);
+}
+
+.create {
   background-color: rgb(114, 186, 6);
-  margin: auto;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  width: 50%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.green-button {
+  background-color: rgb(114, 186, 6);
 }

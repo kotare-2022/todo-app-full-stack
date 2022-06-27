@@ -23,9 +23,8 @@ function App() {
   return (
     <div className="main">
       <header><h1>Todo Application</h1></header>
-      <button onClick={tmpHandler}>Click Me!</button>
-      <Toggleable ref={addTodoFormRef} >
-        <AddTodoForm />
+      <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
+        <AddTodoForm visibilityToggler={tmpHandler}/>
       </Toggleable>
       <Todos todos={todos}/>
     </div>
