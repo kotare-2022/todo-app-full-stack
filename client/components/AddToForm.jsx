@@ -64,6 +64,12 @@ export default function AddTodoForm() {
           return <option key={key} value={descr}>{descr}</option>
         })}
       </select>
+      <button 
+        clasName="cancel" type="submit"
+        // onClick={}
+      >
+        Cancel Submission
+      </button>
       <button className="submit" type="submit">Submit Todo</button>
     </form>
   )

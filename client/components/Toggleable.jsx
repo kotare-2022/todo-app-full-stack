@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef, useImperativeHandle } from 'react'
 
-export default function Toggleable(props) {
+function Toggleable(props, refs) {
   const [visibility, setVisibility] = useState(false)
   
   const displayWhenVisible = {display: visibility ? '' : 'none'}
@@ -15,15 +15,26 @@ export default function Toggleable(props) {
   // -- this is where we would want to display a single button instead of the form
   // -- where the form will just say, `createTodo`
 
+  const toggleVisibility = () => {
+    setVisibility(!visibility)
+  }
+
+  useImperativeHandle(refs, () => {
+    return {
+      toggleVisibility, // <--- linked to refs
+    }
+  })
+
   return (
     <div>
-      <div> 
-        {/* this is displayed when hidden - single button display */}
+      <div style={displayWhenHidden}> 
+        <button onClick={toggleVisibility}>{props.unhideName}</button>
       </div>
-      <div>
-        {/* this is displayed when the form is visible - form display  */}
+      <div style={displayWhenVisible}>
+        {props.children}
       </div>
     </div>
   )
-
 }
+
+export default forwardRef(Toggleable)

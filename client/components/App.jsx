@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
-import Todos from './Todos'
 import AddTodoForm from './AddToForm'
+import Todos from './Todos'
+import Toggleable from './Toggleable'
 
 import todosServices from '../services/todos'
 
@@ -13,10 +14,19 @@ function App() {
       .then(result => setTodos(result))   
   }, [])
 
+  const addTodoFormRef = useRef()
+
+  const tmpHandler = () => {
+    addTodoFormRef.current.toggleVisibility()
+  }
+
   return (
     <div className="main">
       <header><h1>Todo Application</h1></header>
-      <AddTodoForm />
+      <button onClick={tmpHandler}>Click Me!</button>
+      <Toggleable ref={addTodoFormRef} >
+        <AddTodoForm />
+      </Toggleable>
       <Todos todos={todos}/>
     </div>
   )
