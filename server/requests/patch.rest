@@ -5,3 +5,11 @@ Content-Type: application/json
 {
   "title": "Maybe we will do this one thing"
 }
+
+### Adding a PATCH to the database
+PATCH http://localhost:3000/api/v1/todos/4
+Content-Type: application/json
+
+{
+  "description": "I just want to go to sleep ... zzzz.....zz.z.z.zzzzz..zzzz"
+}

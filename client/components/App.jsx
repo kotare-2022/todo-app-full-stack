@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import AddTodoForm from './AddToForm'
-import Todos from './Todos'
+import TodoList from './TodoList'
 import Toggleable from './Toggleable'
 import Filters from './Filters'
 
@@ -17,6 +17,11 @@ function App() {
 
   const addTodo = newTodo => {
     setTodos(todos.concat(newTodo))
+  }
+
+  const updateTodo = (id, updatedTodo) => {
+    // alter todo otherwise, is ok
+    setTodos(todos.map(t => (t.id === id) ? updatedTodo : t))
   }
 
   const deleteTodo = id => {
@@ -44,9 +49,10 @@ function App() {
         />
       </Toggleable>
       <Filters />
-      <Todos 
+      <TodoList 
         todos={todos}
         deleteTodo={deleteTodo}
+        updateTodo={updateTodo}
       />
     </div>
   )
