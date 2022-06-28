@@ -29,7 +29,6 @@ export default function UpdateForm(props) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-    console.log('Add todo handler not yet implemented')
     
     if (isUpdating) {
       // this is where we send the information to the server
