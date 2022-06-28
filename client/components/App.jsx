@@ -6,13 +6,25 @@ import Toggleable from './Toggleable'
 import Filters from './Filters'
 
 import todosServices from '../services/todos'
+import themeServices from '../services/themes'
+import importanceServices from '../services/importance'
 
 function App() {
   const [todos, setTodos] = useState(null)
+  const [themes, setThemes] = useState([])
+  const [importanceLevels, setImportanceLevels] = useState([]) // <--- lifted state!
 
   useEffect(() => {
-    todosServices.getAllTodos()
-      .then(result => setTodos(result))   
+    const todoRequest = todosServices.getAllTodos()
+    const themeRequest = themeServices.getAllThemes()
+    const importanceRequest = importanceServices.getAllImportanceLevels()
+    const promiseCollection = [todoRequest, themeRequest, importanceRequest]
+    Promise.allSettled(promiseCollection)
+      .then(result => {
+        setTodos(result[0].value)
+        setThemes(result[1].value)
+        setImportanceLevels(result[2].value)
+      })
   }, [])
 
   const addTodo = newTodo => {
@@ -27,7 +39,6 @@ function App() {
   const deleteTodo = id => {
     // filters all but the one with id
     setTodos(todos.filter(t => {
-      console.log(t.id, '  |||  ', id)
       return t.id !== id
     }))
   }
@@ -44,6 +55,8 @@ function App() {
       <header><h1>Todo Application</h1></header>
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm 
+          themes={themes}
+          importanceLevels={importanceLevels}
           visibilityToggler={tmpHandler}
           addTodo={addTodo}
         />

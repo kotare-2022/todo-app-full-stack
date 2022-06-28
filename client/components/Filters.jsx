@@ -20,7 +20,7 @@ export default function Filters() {
         setThemes(result[0].value) // first & second at collection
         setImportanceLevels(result[1].value)
       })
-    // <--- repeat from form
+    // <--- repeat from form, like twice ffs
   }, [])
 
   return (
