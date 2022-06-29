@@ -1,32 +1,58 @@
 import React, {useState, useEffect} from 'react'
 
-import todosServices from '../services/todos' 
+import { useSelector, useDispatch } from 'react-redux'
+
+import { addTodos } from '../reducers/todosReducer'
 
 export default function AddTodoForm(props) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [theme, setTheme] = useState(props.themes[0])
-  const [importance, setImportance] = useState(props.importance[0])
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [title, setTitle] = useState('') // control
+  const [description, setDescription] = useState('') // control
+  const [themeInput, setThemeInput] = useState('') // control
+  const [importanceInput, setImportanceInput] = useState('') // contol
+  const [isSubmitting, setIsSubmitting] = useState(false) // control
+
+  const themes = useSelector(globalState => {
+    if (!globalState.themes.length) return []
+    const firstTheme = globalState.themes[0].description
+
+    const tmp = (themeInput !== firstTheme) && 
+     setThemeInput(firstTheme) // bruh code
+
+    return globalState.themes
+  })
+
+  const importance = useSelector(globalState => {
+    if (!globalState.importance.length) return []
+    const firstImportance = globalState.importance[0].description
+
+    const tmp = (importanceInput !== firstImportance) &&
+     setImportanceInput(firstImportance) // bruh code
+
+    return globalState.importance
+  }) 
+
+  const dispatch = useDispatch()
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-    console.log('Add todo handler not yet implemented')
     
     if (isSubmitting) {
       // this is where we send the information to the server
       // then this is where we also change the information from server
+      // debugger
+      console.log(themeInput, themes)
+      console.log(importanceInput, importance)
       const newTodo = {
         title, description, 
-        themeId: props.themes.find(t => t.description === theme).id,
-        importancelId: props.importance.find(imp => imp.description === importance).id
+        themeId: themes.find(t => {
+          return t.description === themeInput
+        }).id,
+        importanceLevelId: importance.find(imp => { // fyi this has to be importance level
+          return imp.description === importanceInput
+        }).id
       }
-      todosServices.addTodo(newTodo)
-        .then(result => {
-          // result is a full todo object that has been added
-          // -- plus already joined!
-          props.addTodo(result)
-        })
+
+      dispatch(addTodos(newTodo))
     }
 
     props.visibilityToggler() 
@@ -48,10 +74,10 @@ export default function AddTodoForm(props) {
       <label htmlFor="theme">Choose a Theme:</label>
       <select 
         name="theme" id="theme" 
-        value={theme} 
-        onChange={e => setTheme(e.target.value)}
+        value={themeInput} 
+        onChange={e => setThemeInput(e.target.value)}
       >
-        {props.themes.map(t => {
+        {themes.map(t => {
           // t.id and t.description
           const [key, descr] = [t.id, t.description]
           return <option key={key} value={descr}>{descr}</option>
@@ -60,10 +86,10 @@ export default function AddTodoForm(props) {
       <label htmlFor="importance_level">How important is this:</label>
       <select 
         name="importance_level" id="importance_level" 
-        value={importance} 
-        onChange={e => setImportance(e.target.value)}
+        value={importanceInput} 
+        onChange={e => setImportanceInput(e.target.value)}
       >
-        {props.importance.map(imp => {
+        {importance.map(imp => {
           // imp.id and imp.description
           const [key, descr] = [imp.id, imp.description]
           return <option key={key} value={descr}>{descr}</option>

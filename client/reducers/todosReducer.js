@@ -20,12 +20,18 @@ export const { setTodos, appendTodos } = todoSlice.actions
 
 // THUNK, async action creators
 export const initializeTodos = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     const todos = await todosServices.getAllTodos() // [{...}, {...}, ...]
     dispatch(setTodos(todos))
-    // todos.forEach(t => {
-    //   dispatch(appendTodos(t)) // this changes the state
-    // })
+  }
+}
+
+export const addTodos = (newTodo) => {
+  return async dispatch => {
+    // returns added todo in full (with importance and theme)
+    console.log(newTodo)
+    const addTodo = await todosServices.addTodo(newTodo)
+    dispatch(appendTodos(addTodo))
   }
 }
 

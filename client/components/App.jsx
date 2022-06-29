@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -13,8 +13,8 @@ import { initializeImportance } from '../reducers/importanceReducer'
 
 function App() {
   const todos = useSelector(globalState => globalState.todos)
-  const themes = useSelector(globalState => globalState.themes)
-  const importance = useSelector(globalState => globalState.importance)
+  // const themes = useSelector(globalState => globalState.themes)
+  // const importance = useSelector(globalState => globalState.importance)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,10 +25,6 @@ function App() {
     // initialize importanceLevels
     dispatch(initializeImportance())
   }, [])
-
-  const addTodo = newTodo => {
-    setTodos(todos.concat(newTodo))
-  }
 
   const updateTodo = (id, updatedTodo) => {
     // alter todo otherwise, is ok
@@ -54,10 +50,7 @@ function App() {
       <header><h1>Todo Application</h1></header>
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm 
-          themes={themes}
-          importance={importance}
           visibilityToggler={tmpHandler}
-          addTodo={addTodo}
         />
       </Toggleable>
       <Filters />
