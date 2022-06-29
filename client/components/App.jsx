@@ -12,6 +12,13 @@ import { initializeThemes } from '../reducers/themesReducer'
 import { initializeImportance } from '../reducers/importanceReducer'
 
 function App() {
+  const themes = useSelector(globalState => {
+    console.log(globalState.themes)
+    return globalState.themes
+  })
+  const importance = useSelector(globalState => {
+    return globalState.importance
+  })
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -36,9 +43,11 @@ function App() {
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm 
           visibilityToggler={visibilityToggler}
+          themes={themes} 
+          importance={importance}
         />
       </Toggleable>
-      <Filters />
+      <Filters themes={themes} importance={importance}/>
       <TodoList />
     </div>
   )

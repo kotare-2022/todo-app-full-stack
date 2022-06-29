@@ -11,27 +11,11 @@ export default function AddTodoForm(props) {
   const [importanceInput, setImportanceInput] = useState('') // contol
   const [isSubmitting, setIsSubmitting] = useState(false) // control
 
-  const themes = useSelector(globalState => {
-    if (!globalState.themes.length) return []
-    const firstTheme = globalState.themes[0].description
 
-    // this is so that the setThemeInput state is set to a value that is valid once the global state is valid
-    const tmp = (themeInput !== firstTheme) && 
-     setThemeInput(firstTheme) // bruh code
-
-    return globalState.themes
-  })
-
-  const importance = useSelector(globalState => {
-    if (!globalState.importance.length) return []
-    const firstImportance = globalState.importance[0].description
-
-    // same here to check for first importance
-    const tmp = (importanceInput !== firstImportance) &&
-     setImportanceInput(firstImportance) // bruh code
-
-    return globalState.importance
-  }) 
+  useEffect(() => {
+    setThemeInput(props.themes[0])
+    setImportanceInput(props.importance[0])
+  }, [props.themes, props.importance]) // so stuff works!!! ugh
 
   const dispatch = useDispatch()
 
@@ -41,10 +25,10 @@ export default function AddTodoForm(props) {
     if (isSubmitting) {
       const newTodo = {
         title, description, 
-        themeId: themes.find(t => {
+        themeId: props.themes.find(t => {
           return t.description === themeInput
         }).id,
-        importanceLevelId: importance.find(imp => { // fyi this has to be importance level
+        importanceLevelId: props.importance.find(imp => { // fyi this has to be importance level
           return imp.description === importanceInput
         }).id
       }
@@ -74,7 +58,7 @@ export default function AddTodoForm(props) {
         value={themeInput} 
         onChange={e => setThemeInput(e.target.value)}
       >
-        {themes.map(t => {
+        {props.themes.map(t => {
           // t.id and t.description
           const [key, descr] = [t.id, t.description]
           return <option key={key} value={descr}>{descr}</option>
@@ -86,7 +70,7 @@ export default function AddTodoForm(props) {
         value={importanceInput} 
         onChange={e => setImportanceInput(e.target.value)}
       >
-        {importance.map(imp => {
+        {props.importance.map(imp => {
           // imp.id and imp.description
           const [key, descr] = [imp.id, imp.description]
           return <option key={key} value={descr}>{descr}</option>
