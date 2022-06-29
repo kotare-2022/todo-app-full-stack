@@ -1,30 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+
 import AddTodoForm from './AddToForm'
 import TodoList from './TodoList'
 import Toggleable from './Toggleable'
 import Filters from './Filters'
 
-import todosServices from '../services/todos'
-import themeServices from '../services/themes'
-import importanceServices from '../services/importance'
+import { initializeTodos } from '../reducers/todosReducer'
+import { initializeThemes } from '../reducers/themesReducer'
+import { initializeImportance } from '../reducers/importanceReducer'
 
 function App() {
-  const [todos, setTodos] = useState(null)
-  const [themes, setThemes] = useState([])
-  const [importanceLevels, setImportanceLevels] = useState([]) // <--- lifted state!
+  const todos = useSelector(globalState => globalState.todos)
+  const themes = useSelector(globalState => globalState.themes)
+  const importance = useSelector(globalState => globalState.importance)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const todoRequest = todosServices.getAllTodos()
-    const themeRequest = themeServices.getAllThemes()
-    const importanceRequest = importanceServices.getAllImportanceLevels()
-    const promiseCollection = [todoRequest, themeRequest, importanceRequest]
-    Promise.allSettled(promiseCollection)
-      .then(result => {
-        setTodos(result[0].value)
-        setThemes(result[1].value)
-        setImportanceLevels(result[2].value)
-      })
+    // initialize todos
+    dispatch(initializeTodos())
+    // initialize themes
+    dispatch(initializeThemes())
+    // initialize importanceLevels
+    dispatch(initializeImportance())
   }, [])
 
   const addTodo = newTodo => {
@@ -56,7 +55,7 @@ function App() {
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm 
           themes={themes}
-          importanceLevels={importanceLevels}
+          importance={importance}
           visibilityToggler={tmpHandler}
           addTodo={addTodo}
         />

@@ -3,8 +3,15 @@ import ReactDOM from 'react-dom'
 
 import App from './components/App'
 
-// consider use of routes from react-router-dom
+import { Provider } from 'react-redux'
+
+// then import the store
+import store from './store'
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<App />, document.getElementById('app'))
+  ReactDOM.render(
+    <Provider store={store}>
+      <App /> 
+    </Provider>
+  , document.getElementById('app'))
 })

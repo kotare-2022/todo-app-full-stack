@@ -6,7 +6,7 @@ export default function AddTodoForm(props) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [theme, setTheme] = useState(props.themes[0])
-  const [importance, setImportance] = useState(props.importanceLevels[0])
+  const [importance, setImportance] = useState(props.importance[0])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const onSubmitHandler = (e) => {
@@ -19,7 +19,7 @@ export default function AddTodoForm(props) {
       const newTodo = {
         title, description, 
         themeId: props.themes.find(t => t.description === theme).id,
-        importanceLevelId: props.importanceLevels.find(imp => imp.description === importance).id
+        importancelId: props.importance.find(imp => imp.description === importance).id
       }
       todosServices.addTodo(newTodo)
         .then(result => {
@@ -63,7 +63,7 @@ export default function AddTodoForm(props) {
         value={importance} 
         onChange={e => setImportance(e.target.value)}
       >
-        {props.importanceLevels.map(imp => {
+        {props.importance.map(imp => {
           // imp.id and imp.description
           const [key, descr] = [imp.id, imp.description]
           return <option key={key} value={descr}>{descr}</option>
