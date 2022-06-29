@@ -1,31 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 
-import todosServices from '../services/todos'
-import themeServices from '../services/themes'
-import importanceServices from '../services/importance'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { updateTodo } from '../reducers/todosReducer'
 
 export default function UpdateForm(props) {
-  // FFS this is where the form is gonna go
-  const todo = props.todo
-  const [title, setTitle] = useState(todo.title)
-  const [description, setDescription] = useState(todo.description)  
-  const [theme, setTheme] = useState(todo.themeDescription)
-  const [themes, setThemes] = useState([])
-  const [importance, setImportance] = useState(todo.importanceLevelDescription)
-  const [importanceLevels, setImportanceLevels] = useState([])
+  // console.log(props.todo)
+  const todo = props.todo // <--- yes
+  const [title, setTitle] = useState(todo.title) // control
+  const [description, setDescription] = useState(todo.description) // control
+  const [themeInput, setThemeInput] = useState(todo.themeDescription) // control
+  const [importanceInput, setImportanceInput] = useState(todo.importanceLevelDescription) // contol
   const [isUpdating, setIsUpdating] = useState(false)  // <--- this is for updating on backend
 
-  useEffect(() => {
-    const themeRequest = themeServices
-      .getAllThemes()
-    const importanceRequest = importanceServices
-      .getAllImportanceLevels()
-    Promise.allSettled([themeRequest, importanceRequest])
-      .then(result => {
-        setThemes(result[0].value) // first & second at collection
-        setImportanceLevels(result[1].value)
-      })
-  }, []) // bruh-ied and pasted
+  const themes = useSelector(globalState => globalState.themes)
+  const importance = useSelector(globalState => globalState.importance) 
+
+  const dispatch = useDispatch()
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
@@ -33,17 +24,13 @@ export default function UpdateForm(props) {
     if (isUpdating) {
       // this is where we send the information to the server
       // then this is where we also change the information from server
+      // console.log()
       const updatedTodo = { // yea same as prior
         title, description, 
-        themeId: themes.find(t => t.description === theme).id,
-        importanceLevelId: importanceLevels.find(imp => imp.description === importance).id
+        themeId: themes.find(t => t.description === themeInput).id,
+        importanceLevelId: importance.find(imp => imp.description === importanceInput).id
       }
-      todosServices.updateTodoById(todo.id, updatedTodo)
-        .then(result => {
-          // result is a full todo object that has been added
-          // -- plus already joined!
-          props.updateTodo(todo.id, result)
-        })
+      dispatch(updateTodo(todo.id, updatedTodo))
     }
 
     props.toggleVisibility()
@@ -64,8 +51,8 @@ export default function UpdateForm(props) {
       <label htmlFor="theme">Choose a Theme:</label>
       <select 
         name="theme" id="theme" 
-        value={theme} 
-        onChange={e => setTheme(e.target.value)}
+        value={themeInput} 
+        onChange={e => setThemeInput(e.target.value)}
       >
         {themes.map(t => {
           // t.id and t.description
@@ -76,10 +63,10 @@ export default function UpdateForm(props) {
       <label htmlFor="importance_level">How important is this:</label>
       <select 
         name="importance_level" id="importance_level" 
-        value={importance} 
-        onChange={e => setImportance(e.target.value)}
+        value={importanceInput} 
+        onChange={e => setImportanceInput(e.target.value)}
       >
-        {importanceLevels.map(imp => {
+        {importance.map(imp => {
           // imp.id and imp.description
           const [key, descr] = [imp.id, imp.description]
           return <option key={key} value={descr}>{descr}</option>

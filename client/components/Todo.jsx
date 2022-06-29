@@ -18,7 +18,6 @@ export default function Todo(props) {
   const dispatch = useDispatch()
 
   const handleUpdate = () => {
-    console.log('Update not yet implemented')
     setToUpdate(!toUpdate)
   }
 
@@ -33,7 +32,7 @@ export default function Todo(props) {
           <button 
             className="update" 
             type="submit" 
-            onClick={handleUpdate}
+            onClick={handleUpdate} // <--- for visibility
           >
             Update
           </button>
@@ -47,8 +46,7 @@ export default function Todo(props) {
         </div> :
         <UpdateForm 
           todo={todo} 
-          toggleVisibility={handleUpdate}
-          updateTodo={props.updateTodo}
+          toggleVisibility={handleUpdate} // <--- for visibility
         />
       }
     </div>    
