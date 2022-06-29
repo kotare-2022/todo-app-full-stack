@@ -19,26 +19,14 @@ function App() {
     dispatch(initializeTodos())
     // initialize themes
     dispatch(initializeThemes())
-    // initialize importanceLevels
+    // initialize importance
     dispatch(initializeImportance())
   }, [])
-
-  const updateTodo = (id, updatedTodo) => {
-    // alter todo otherwise, is ok
-    setTodos(todos.map(t => (t.id === id) ? updatedTodo : t))
-  }
-
-  const deleteTodo = id => {
-    // filters all but the one with id
-    setTodos(todos.filter(t => {
-      return t.id !== id
-    }))
-  }
 
   // REFS
   const addTodoFormRef = useRef()
 
-  const tmpHandler = () => {
+  const visibilityToggler = () => {
     addTodoFormRef.current.toggleVisibility()
   }
 
@@ -47,14 +35,11 @@ function App() {
       <header><h1>Todo Application</h1></header>
       <Toggleable ref={addTodoFormRef} unhideName={'Create Todo'}>
         <AddTodoForm 
-          visibilityToggler={tmpHandler}
+          visibilityToggler={visibilityToggler}
         />
       </Toggleable>
       <Filters />
-      <TodoList 
-        deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-      />
+      <TodoList />
     </div>
   )
 }
