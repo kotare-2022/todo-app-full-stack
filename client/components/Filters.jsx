@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react'
 
-import themeServices from '../services/themes'
-import importanceServices from '../services/importance'
-
 export default function Filters(props) {
-  const [themeInput, setThemeInput] = useState(props.themes[0] && '')
-  const [importanceInput, setImportanceInput] = useState(props.importance[0] && '')
+  const [themeInput, setThemeInput] = useState('')
+  const [importanceInput, setImportanceInput] = useState('')
+
+  useEffect(() => {
+    // ohh shit it works lmao tf
+    setThemeInput(props.themes[0] && props.themes[0].description)
+    setImportanceInput(props.importance[0] && props.importance[0].description)
+  }, [props.themes, props.importance]) // so stuff works!!! ugh
 
   return (
     <div className="filter-box">

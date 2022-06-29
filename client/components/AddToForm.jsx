@@ -13,8 +13,9 @@ export default function AddTodoForm(props) {
 
 
   useEffect(() => {
-    setThemeInput(props.themes[0])
-    setImportanceInput(props.importance[0])
+    // ohh shit it works lmao tf
+    setThemeInput(props.themes[0] && props.themes[0].description)
+    setImportanceInput(props.importance[0] && props.importance[0].description)
   }, [props.themes, props.importance]) // so stuff works!!! ugh
 
   const dispatch = useDispatch()
@@ -22,6 +23,8 @@ export default function AddTodoForm(props) {
   const onSubmitHandler = (e) => {
     e.preventDefault()
     
+    console.log(themeInput, props.themes)
+
     if (isSubmitting) {
       const newTodo = {
         title, description, 
