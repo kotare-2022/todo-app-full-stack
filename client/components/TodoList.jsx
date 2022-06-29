@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import Todo from './Todo'
 
 export default function TodoList(props) {
-  const todos = props.todos
+  const todos = useSelector(globalState => globalState.todos)
 
   /*
   We have a Update form

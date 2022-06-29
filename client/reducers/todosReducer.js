@@ -13,10 +13,13 @@ const todoSlice = createSlice({
       // this will append to the state
       state.push(action.payload)
     },
+    deleteTodo(state, action) {
+      return state.filter(s => s.id !== action.payload)
+    }
   }
 })
 
-export const { setTodos, appendTodos } = todoSlice.actions
+export const { setTodos, appendTodos, deleteTodo } = todoSlice.actions
 
 // THUNK, async action creators
 export const initializeTodos = () => {
@@ -32,6 +35,15 @@ export const addTodos = (newTodo) => {
     console.log(newTodo)
     const addTodo = await todosServices.addTodo(newTodo)
     dispatch(appendTodos(addTodo))
+  }
+}
+
+export const removeTodo = (id) => {
+  return async dispatch => {
+    // console.log(id)
+    await todosServices.deleteTodoById(id)
+    // console.log(id)
+    dispatch(deleteTodo(id))
   }
 }
 

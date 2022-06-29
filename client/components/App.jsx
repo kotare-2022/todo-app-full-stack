@@ -12,9 +12,6 @@ import { initializeThemes } from '../reducers/themesReducer'
 import { initializeImportance } from '../reducers/importanceReducer'
 
 function App() {
-  const todos = useSelector(globalState => globalState.todos)
-  // const themes = useSelector(globalState => globalState.themes)
-  // const importance = useSelector(globalState => globalState.importance)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -55,7 +52,6 @@ function App() {
       </Toggleable>
       <Filters />
       <TodoList 
-        todos={todos}
         deleteTodo={deleteTodo}
         updateTodo={updateTodo}
       />

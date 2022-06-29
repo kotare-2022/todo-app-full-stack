@@ -15,6 +15,7 @@ export default function AddTodoForm(props) {
     if (!globalState.themes.length) return []
     const firstTheme = globalState.themes[0].description
 
+    // this is so that the setThemeInput state is set to a value that is valid once the global state is valid
     const tmp = (themeInput !== firstTheme) && 
      setThemeInput(firstTheme) // bruh code
 
@@ -25,6 +26,7 @@ export default function AddTodoForm(props) {
     if (!globalState.importance.length) return []
     const firstImportance = globalState.importance[0].description
 
+    // same here to check for first importance
     const tmp = (importanceInput !== firstImportance) &&
      setImportanceInput(firstImportance) // bruh code
 
@@ -37,11 +39,6 @@ export default function AddTodoForm(props) {
     e.preventDefault()
     
     if (isSubmitting) {
-      // this is where we send the information to the server
-      // then this is where we also change the information from server
-      // debugger
-      console.log(themeInput, themes)
-      console.log(importanceInput, importance)
       const newTodo = {
         title, description, 
         themeId: themes.find(t => {
