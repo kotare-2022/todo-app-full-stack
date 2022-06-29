@@ -47,7 +47,10 @@ function App() {
           importance={importance}
         />
       </Toggleable>
-      <Filters themes={themes} importance={importance}/>
+      <Filters 
+        themes={themes} 
+        importance={importance}
+      />
       <TodoList />
     </div>
   )
