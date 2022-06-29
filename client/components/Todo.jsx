@@ -1,31 +1,25 @@
 import React, { useState } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { removeTodo } from '../reducers/todosReducer'
 
 import UpdateForm from './UpdateForm'
 
-import todosServices from '../services/todos' 
-
 export default function Todo(props) {
-  const [toUpdate, setToUpdate] = useState(false) // <--- for visibility
-  
-  const dispatch = useDispatch()
+  const todo = useSelector(globalState => {
+    const todos = globalState.todos
+    const id = props.id
+    return todos.find(t => t.id === id)
+  })
+  // <--- for visibility
+  const [toUpdate, setToUpdate] = useState(false) 
 
-  const todo = props.todo
+  const dispatch = useDispatch()
 
   const handleUpdate = () => {
     console.log('Update not yet implemented')
     setToUpdate(!toUpdate)
-  }
-
-  const handleDelete = () => {
-    todosServices.deleteTodoById(todo.id)
-      .then(_ => {
-        console.log('hello')
-        props.deleteTodo(todo.id)
-      })
   }
 
   return (

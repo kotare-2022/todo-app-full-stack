@@ -21,9 +21,8 @@ export default function TodoList(props) {
       return (
         <Todo 
           key={todo.id} 
+          id={todo.id}
           todo={todo} 
-          deleteTodo={props.deleteTodo}
-          updateTodo={props.updateTodo}
         />
       )
     })}
