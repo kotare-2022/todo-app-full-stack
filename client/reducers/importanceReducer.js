@@ -10,7 +10,8 @@ const importanceSlice = createSlice({
       return action.payload
     },
     appendImportance(state, action) {
-      state.push(action.payload)
+      // state.push(action.payload) // destructive
+      return state.concat(action.payload) // gerard
     }
   }
 })
